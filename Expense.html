@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Expense Report</title>
+<style type="text/css">
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+</style>
+</head>
+<body>
+	<h1 id="headingElement"></h1>
+	<input id="inputNumber">
+	<input id="desc">
+	<button id="btnAdd">+</button>
+	<div id="expenseTable"></div>
+
+	<script type="text/javascript">
+	//Get the heading element reference
+	const eHeading = document.querySelector("#headingElement");
+	// Get the Add button reference
+	const element = document.querySelector("#btnAdd");
+	// Get Description Input box reference
+	const eDesc = document.querySelector("#desc");
+	//get Amount InputBox reference
+	const eInputAmount = document.querySelector("#inputNumber");
+	//Get Display Table reference
+	const eDisplayTable = document.querySelector("#expenseTable");
+
+	// Initaialize total expense to zero
+	let totalExpence = 0;
+	eHeading.textContent = totalExpence;
+	// Take an empty global array
+	const arr = [];
+	
+	function counterIncrement(){
+		// take empty expense object
+		const expenseObj = {};
+		//Grab input value of Amount InputBox 
+		const amountText =  eInputAmount.value;
+		//Convert it to Int
+		const amountInt = parseInt(amountText,10);
+
+		// Grab input value of Desc InputBox
+		const descText = eDesc.value;
+
+		//Assign both amountText & Desc Text to Expense Object
+		expenseObj.desc = descText;
+		expenseObj.amount = amountInt;	
+		
+		//Assign the Global array with expenseObj
+		arr.push(expenseObj);
+		//Add the value to TotalExpence
+		totalExpence = totalExpence + amountInt;
+		
+		//Display TotalExpence as Heading element 
+		eHeading.textContent = `Total : ${totalExpence}`;
+
+		//Clear the previous cotent of console
+		console.clear();
+
+		//Display contents of array		
+		// eDisplayTable.innerHTML = `<div>${expenseObj.desc}:${expenseObj.amount}</div>`;
+
+		const arrHTML = arr.map(ex=>{
+			return `<div>${ex.desc}:${ex.amount}</div>`;
+		});
+		const allExpense = arrHTML.join("");
+		eDisplayTable.innerHTML = allExpense;
+		
+
+	}
+	
+	
+	// Listen to click event
+	element.addEventListener("click",counterIncrement,false);
+	
+		
+	</script>
+
+</body>
+</html>
